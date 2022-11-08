@@ -242,3 +242,108 @@ inp = inp[inp['int_rate'] > 0]
 
 inp["term_months"] = inp.term.apply(lambda x: ("".join(filter(str.isdigit, str(x)))))
 inp = inp[inp['term_months']!='']
+
+
+
+
+loan_data['int_rate_groups'] = pd.cut(loan_data['int_rate'], bins=5,precision =0,labels=['5%-9%','9%-13%','13%-17%','17%-21%','21%-24%'])
+loan_data['open_acc_groups'] = pd.cut(loan_data['open_acc'],bins = 5,precision =0,labels=['2-10','10-19','19-27','27-36','36
+
+
+*Applicants who have taken a loan in the range 30k - 35k and are charged interest rate of 15-17.5 %.
+*Applicants who have taken a loan for small business and the loan amount is greater than 14k.
+*Applicants whose home ownership is 'MORTGAGE and have loan of 14-16k.
+*Maximum number of defaults occured when the loan was sanctioned/issued in month December.
+*Loan issued in the year 2011 also defaulted more as compared to other years.
+*When grade is F and loan amount is between 15k-20k.
+*When employment length is 10yrs and loan amount is 12k-14k.
+*For grade G and interest rate above 20%.
+
+This can be a pretty strong driving factor for loan defaulting.
+*The interest rate for charged off loans is pretty high than that of fully paid loans in all the loan_amount groups.
+*Applicants who have taken a loan in the range 30k - 35k and are charged interest rate of 15-17.5 %.
+
+*Applicants taking loan for 'home improvement' and have income of 60k -70k.
+*Applicants whose home ownership is 'MORTGAGE and have income of 60-80k.
+*Across all the income groups, the loan_amount is higher for people who defaulted.
+*Applicants who receive interest at the rate of 21-24% and have an income of 60k-70k.
+
+
+
+emp_length --> digit alone string --> float
+
+
+issue_year (issue_d)
+
+Loan to annual income variable created
+l_t_ai  (loan_amnt, annual_inc)
+
+Intrest rate converted to float for analysis
+int_rate_float (int_rate)
+
+# grouping loan_amnt_based on the distribution
+loan_amnt_groups(loan_amnt)
+
+
+From above plots we can see that average default rate across all categories is 14.4% and non-default rate is 85.4%.
+People with experience 1 and 10 years are purchasing more loans.
+Evalauation from year 2007 to 2011 the loan purchase are increasing every year.
+B type grade take the lead(30.3%), followed by the A type grades(26%).
+The following are the top 6 categories where maximum loan applications have been recieved and hence high is the defaulting probability in these categories.
+
+
+
+
+
+
+
+
+
+From the above graphs we can see that people with less experience have high chance of default.
+People lying in medium dti range have high chances of default
+People who have high loan to annual income ratio are at high risk of defaulting.
+Grades B,Cand D are at high probablity of defaulting.
+
+
+
+
+
+
+
+
+Univariate Categorical Analysis Analysis
+
+
+From the above graphs we can see that people with less experience have high chance of default.
+People lying in medium dti range have high chances of default
+People who have high loan to annual income ratio are at high risk of defaulting.
+Grades B,Cand D are at high probablity of defaulting
+
+
+delinq_2yrs,earliest_cr_line,inq_last_6mths,open_acc,pub_rec,
+revol_bal,revol_util,total_acc,out_prncp,out_prncp_inv,
+total_pymnt,total_pymnt_inv,total_rec_prncp,total_rec_int,
+total_rec_late_fee,recoveries,collection_recovery_fee,
+last_pymnt_d,last_pymnt_amnt,next_pymnt_d,last_credit_pull_d,
+application_type,
+
+
+['0-5k','5k-10k','10k-15k','15k-20k','20k-25k','25k-30k','30k-35k']
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
