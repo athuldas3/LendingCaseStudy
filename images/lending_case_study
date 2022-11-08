@@ -1,0 +1,244 @@
+loan_amnt : The listed amount of the loan applied for by the borrower. If at some point in time, the credit department reduces the loan amount, then it will be reflected in this value.
+
+funded_amnt : The total amount committed to that loan at that point in time.
+
+funded_amnt_inv : The total amount committed by investors for that loan at that point in time.
+
+grade & sub_grade : Loan grading is a classification system that involves assigning a quality score to a loan based on a borrower's credit history, quality of the collateral.
+
+verification_status : Indicates if income was verified by LC, not verified, or if the income source was verified
+
+Generally, banks have a verification team of their own. A representative from the team is sent to the borrower's place of residence to verify the address.
+
+desc : Loan description provided by the borrower
+
+purpose : A category provided by the borrower for the loan request. 
+
+title : The loan title provided by the borrower
+
+dti ( Debt-to-Income Ratio) : A ratio calculated using the borrower’s total monthly debt payments on the total debt obligations, excluding mortgage and the requested LC loan, divided by the borrower’s self-reported monthly income. (monthly debt/monthly income) ( 28% )
+
+delinq_2yrs : The number of 30+ days past-due incidences of delinquency in the borrower's credit file for the past 2 years (values: 0,1,2)
+
+earliest_cr_line : The month the borrower's earliest reported credit line was opened
+
+inq_last_6mths : The number of inquiries in past 6 months (excluding auto and mortgage inquiries)
+
+mths_since_last_delinq : The number of months since the borrower's last delinquency.
+
+mths_since_last_record : The number of months since the last public record.
+
+open_acc : The number of open credit lines in the borrower's credit file.
+
+A credit file is a collection of data about an individual's borrowing and repayment activity.
+A line of credit, also known as a credit line, is an open-ended, revolving loan that a borrower may access on demand.
+
+pub_rec : Number of derogatory public records
+
+derogatory means showing a critical or disrespectful attitude.
+
+revol_bal : Total credit revolving balance
+
+A revolving loan facility is a form of credit issued by a financial institution that provides the borrower with the ability to draw down or withdraw, repay, and withdraw again
+
+revol_util : Revolving line utilization rate, or the amount of credit the borrower is using relative to all available revolving credit.
+
+initial_list_status : The initial listing status of the loan. Possible values are – W, F
+
+
+
+Bivariate and univariate analysis.
+
+total_acc and total_acc
+
+data cleaning: 
+
+verification_status, emp_length, home_ownership, annual_inc, loan_status(Fully Paid), earliest_cr_line, mths_since_last_delinq, 
+pub_rec, total_rec_late_fee
+
+Loan urgency: inq_last_6mths, 
+
+grade, sub_grade (need more idea)
+
+
+dti, delinq_2yrs, 
+
+Analysis
+
+When a person applies for a loan, there are two types of decisions that could be taken by the company:
+
+1) Loan accepted: If the company approves the loan, there are 3 possible scenarios described below:
+
+Fully paid: Applicant has fully paid the loan (the principal and the interest rate)
+
+Current: Applicant is in the process of paying the instalments, i.e. the tenure of the loan is not yet completed. These candidates are not labelled as 'defaulted'.
+
+Charged-off: Applicant has not paid the instalments in due time for a long period of time, i.e. he/she has defaulted on the loan 
+
+
+
+2) Loan rejected: The company had rejected the loan (because the candidate does not meet their requirements etc.). Since the loan was rejected, there is no transactional history of those applicants with the company and so this data is not available with the company (and thus in this dataset)
+
+
+In this case, the customers labelled as 'charged-off' are the 'defaulters'.
+
+
+
+Data cleaning:
+
+emp_length (> 1 years) : to numbers and make it readable.
+int_rate to int for analysis.
+term : to month(int) & year.
+
+
+
+Data analysis:
+
+grade and emp title
+
+check whether grading is correct  sub_grade 
+
+term and delinq_2yrs(past due date 30 +days)
+
+income and  payment status
+
+payment_status and term.
+
+loan amount and delinq_2yrs
+
+home_ownership and loan_status
+
+int_rate and recoveries
+
+income and recoveries
+
+total_rec_late_fee
+
+last_credit_pull_d and recoveries
+
+pub_rec_bankruptcies and loan amount
+
+
+
+Fields to consider:
+
+Loan_amt, Term, Interest_rate, Grade, SubGrade, Annual Income, Purpose of loan, 
+DTI (Debt to Income), Emp_Lenght, Loan_Date(Month), Home_Ownership, Verification_Status
+
+
+funded_amnt_inv, term, int_rate, grade, sub_grade, annual_inc, purpose, 
+dti, emp_length, issue_d, home_ownership, verification_status
+
+addr_state, emp_title, 
+dti, installment, delinq_2yrs, recoveries, loan_status
+
+Bivariate: 
+addr_state and its count
+
+from matplotlib.pyplot import figure
+
+df1 = inp['addr_state'].value_counts().iloc[:12]
+print(type(inp['addr_state'].value_counts().iloc[:12]))
+# inp['addr_state'].value_counts().plot.bar()
+df1.plot.bar()
+figure(figsize=(3, 2), dpi=80)
+
+inp1 = df1.to_frame(name="state_count")
+inp1.index.name = 'foo'
+
+purpose and its count
+
+inp.purpose.value_counts()
+
+
+
+
+emp_title ',
+'emp_length',
+'home_ownership',
+'annual_inc',
+'verification_status',
+'addr_state',
+'purpose',
+'loan_amnt',
+'funded_amnt',
+'funded_amnt_inv',
+'int_rate',
+'loan_status',
+'grade',
+'sub_grade',
+'dti',
+'issue_d',
+'term',
+'installment'
+
+
+
+
+
+
+
+
+
+
+Questions from case study:
+
+1) TThe data given below contains information about past loan applicants and whether they ‘defaulted’ or not. The aim is to identify patterns which indicate if a person is likely to default, which may be used for taking actions such as denying the loan, reducing the amount of loan, lending (to risky applicants) at a higher interest rate, etc.
+2) If one is able to identify these risky loan applicants, then such loans can be reduced thereby cutting down the amount of credit loss. Identification of such applicants using EDA is the aim of this case study.
+3) In other words, the company wants to understand the driving factors (or driver variables) behind loan default, i.e. the variables which are strong indicators of default.  The company can utilise this knowledge for its portfolio and risk assessment. 
+4) identify factore lead to dfault.
+
+
+
+
+categorical X categorical  : stack column charts
+
+categorical X numerical : box plot
+
+Numerical : line chatter, scatter
+
+correalation : scatter plot
+
+
+current default,
+
+Operation to do:
+
+1) remove people that are on going loan, charged off.
+2) consider people that have paid emi after 3 months after not paying dor 3 months.
+3) funded_amnt_inv and funded_amt should be less than loan_amnt 
+
+
+univariate --> histogram
+bivariate -->
+multivariate --> 
+
+Bivariate--
+cat vs cat --> stacked column chart
+cat vs num --> box plot
+num vs num --> Scatter plot
+
+
+
+loan_amnt : applied loan amt
+funded_amt: what is approved by the approver
+funded_amnt_inv : actual amt given by the investor
+
+
+Removing rows with loan status as Current beacuse for doing analysis we will only consider with laon status as Fully paid or charged off.
+loans = loans[loans.loan_status != 'Current']
+
+
+
+
+# int_rate to float for numerical analysis.
+
+if inp["int_rate"].dtype != "float":
+    inp["int_rate"] = inp["int_rate"].apply(lambda x: float(x[:-1]) if x else 0)
+inp = inp[inp['int_rate'] > 0]
+
+# term : to month(int) & year.
+# convert term to integer months
+
+inp["term_months"] = inp.term.apply(lambda x: ("".join(filter(str.isdigit, str(x)))))
+inp = inp[inp['term_months']!='']
